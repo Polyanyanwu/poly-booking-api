@@ -29,8 +29,10 @@ The project has very limited time, therefore the initial design will aim at the 
 
 1. Create API for display getting list of hotels matching the criteria of city location.
 2. Create API for fetching details of a selected hotel.
-3. Create APIs for the update, delete, creation of hotels, room details and supporting code tables.
+3. Create APIs for the update, delete, creation of hotels and room amenity details.
 4. A frontend for rendering the list of hotels and data describing the Hotel like, Images, Price, Promotions, Ratings, facilities, etc.
+
+The facility codes and room types shall be general and maintained by the site owner. The codes shall be used in forming the API data.
 
 If time permits, the update, delete and create functions shall be done by only privileged users.
 
@@ -38,10 +40,10 @@ If time permits, the update, delete and create functions shall be done by only p
 
 ### **Wireframes**
 
-Wireframes were designed at the onset of the project and guided the development of the application. The full wireframes are [provided HERE](/docs/wireframe.md)
+Wireframes were designed at the onset of the project and guided the development of the application. The full wireframes are ![provided HERE](/docs/wireframe.md)
 
 ## Database
 
 The application will use the Postgres Database and initial entity diagram is given below:
 
-[Database Entity Diagram](/docs/poly_booking_ed.png)
+![Database Entity Diagram](/docs/poly_booking_ed.png)
