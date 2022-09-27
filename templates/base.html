@@ -9,12 +9,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Buy framed classical art prints from world's famous artists!" />
-  <meta name="keywords" content="classical art prints, framed photos of classical art, classical artwork, 
-      buy prints of famous artists, famous artists, framed classical art prints,
-      famous paintings, where can I buy classical art in Dublin, buy printed artwork,
-      buy classical art printed, artwork, paintings, artist, classical art" />
-  <meta name="author" content="Graces Art Print" />
+  <meta name="description" content="Book a luxury hotel and have fun" />
+  <meta name="keywords" content="Hotel, booking" />
+  <meta name="author" content="Poly Booking API" />
   {% endblock %}
 
   {% block extra_meta %}
@@ -65,7 +62,7 @@
             <form method="GET" action="#">
               <div class="input-group w-100">
                 <input class="form-control border black-border" type="text" name="qry"
-                  placeholder="Search Hotel by name or city">
+                  placeholder="Search hotel by name or city">
                 <div class="input-group-append">
                   <button class="form-control btn my-btn border black-border" type="submit">
                     <span class="icon">
@@ -84,22 +81,23 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarText">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 list-inline">
               {% if user.is_authenticated %}
-              {% if user.is_staff %}
               <li class="nav-item dropdown dropdown-menu-end">
                 <a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false" title="Admin & Operator Menu Dropdown">
                   <div class="text-center">
                     <div><i class="fas fa-user-plus fa-lg"></i></div>
-                    <p class="my-0">Admin</p>
+                    <p class="my-0">My Profile</p>
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                {% if user.is_staff %}
                   <!-- Administrator Role Options -->
-                    <li><a class="dropdown-item" href="{% url 'general_info' %}">Maintain Facility Codes</a></li>
-                    <li><a class="dropdown-item" href="{% url 'system_preference' %}">Maintain Room Types</a></li>
+                    <li><a class="dropdown-item" href="#">Maintain Facility Codes</a></li>
+                    <li><a class="dropdown-item" href="#">Maintain Room Types</a></li>
+                {% endif %}
+                <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
                 </ul>
               </li>
-              {% endif %}
 
               {% else %}
               <!-- only show register and login button if user is not already signed in -->
@@ -108,7 +106,7 @@
                   data-bs-toggle="dropdown" aria-expanded="false" title="User Account Dropdown">
                   <div class="text-center">
                     <div><i class="fas fa-user icon"></i></div>
-                    <p class="my-0">My Account</p>
+                    <p class="my-0">My Profile</p>
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink3">
@@ -128,15 +126,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
         </nav>
-      </div>
-      <!-- <div id="delivery-banner" class="row text-center">
-        <div class="col p-1 voucher-banner">
-          <a href="{% url 'coupons' %}">
-          <h4 class="mb-1">Fabulous discounts available to new and returning customers grab a voucher now!</h4>
-        </a>
-        </div>
-      </div> -->
-      
+      </div>    
     </div>
   </header>
   <!-- Modal dialogue for confirmations -->

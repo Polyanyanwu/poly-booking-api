@@ -1,0 +1,388 @@
+html {
+    height: 100%;
+}
+
+/* Color variables */
+:root {
+    --baby-powder: #FFFFFA;
+    --grey: #515052;
+    --rich-black: #000103;
+    --jet: #333138;
+    --tart-orange: #FF312E;
+}
+
+body {
+    /* background: url('/media/index_background.png') no-repeat center center fixed;
+    background-size: cover;
+    background-position-y: 8.4rem; */
+    font-family: 'Exo', sans-serif;
+    font-weight: 400;
+}
+
+main {
+    height: calc(100vh - 143.6px);
+    position: fixed;
+    width: 100%;
+    margin-top: 160px;
+    overflow: auto;
+}
+
+.index-container {
+    height: calc(100vh - 310px);
+}
+
+.hidden {
+    display: none;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+/* Disable text decoration for all links */
+a {
+    text-decoration: none;
+}
+
+.title-bar {
+    background: linear-gradient(0.25turn, var(--tart-orange), var(--jet), var(--grey));
+    color: #EDF7F6;
+    font-size: 1rem;
+}
+
+.highlight {
+    color: var(--tart-orange) !important;
+    font-weight: bold;
+}
+
+.strikeout {
+    text-decoration: line-through;
+}
+
+.go-shop-btn {
+    background: var(--rich-black);
+    color: var(--baby-powder);
+    min-width: 150px;
+    font-weight: 500;
+}
+
+
+.back-to-top-btn {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.back-to-top-link {
+    cursor: pointer
+}
+
+.go-shop-btn:hover {
+    color: var(--tart-orange)
+}
+
+.img-cover {
+    object-fit: cover;
+    width: 300px;
+    height: 200px;
+}
+
+.img-tiny {
+    object-fit: cover;
+    width: 60px;
+    height: 30px;
+    cursor: auto;
+}
+
+.img-mid {
+    object-fit: cover;
+    width: 120px;
+    height: 60px;
+}
+
+/* from Bulma -walkthrough project*/
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.black-border {
+    border: 1px solid var(--rich-black) !important;
+}
+
+.red-border {
+    border: 1px solid var(--tart-orange) !important;
+}
+
+.my-btn {
+    background: var(--rich-black);
+    color: var(--tart-orange);
+}
+
+.my-btn:hover {
+    color: var(--baby-powder);
+}
+
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.auth-container,
+.container-main {
+    min-height: calc(100% - 145px);
+}
+
+.scroll-nav {
+    max-height: 400px;
+    overflow: scroll;
+}
+
+/* overwrite bootstrap display of down pointing arrow */
+.dropstart .dropdown-toggle::before {
+    display: none;
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: var(--baby-powder);
+    z-index: -1;
+}
+
+.btn-ok:hover {
+    color: var(--baby-powder);
+    background-color: var(--grey);
+}
+
+.btn-cancel {
+    color: var(--baby-powder);
+    background-color: var(--tart-orange);
+}
+
+.btn-cancel:hover {
+    color: var(--baby-powder);
+    background-color: var(--grey);
+}
+
+.btn-select {
+    color: var(--rich-black);
+    background-color: var(--baby-powder);
+    border: solid 1px var(--tart-orange);
+}
+
+.btn-select:hover {
+    color: var(--baby-powder);
+    background-color: var(--grey);
+}
+
+input,
+.dropdown-toggle,
+.nav-link {
+    color: var(--rich-black);
+    font-weight: bold !important;
+}
+
+/* Django allauth */
+.form-inner-content label:not([for='id_remember']) {
+    display: none;
+}
+
+.allauth-email-label {
+    display: block !important;
+}
+
+.form-inner-content div input,
+.form-inner-content div select {
+    margin-top: 0.6rem;
+}
+
+.form-inner-content input {
+    color: var(--rich-black);
+    font-weight: bold;
+}
+
+.form-inner-content input::placeholder {
+    color: var(--bs-gray-500);
+}
+
+/* toast messages */
+.message-container {
+    position: fixed;
+    top: 65px;
+    right: 1rem;
+    z-index: 99999999999;
+}
+
+/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
+.up-arrow {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 10px solid black;
+    position: absolute;
+    top: -10px;
+    right: 36px;
+}
+
+/* Input for review return order comments */
+#floatingTextarea2 {
+    height: 100px;
+}
+
+.arrow-success {
+    border-bottom-color: #28a745 !important;
+}
+
+
+.container-fluid {
+    padding: 0;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
+
+.bag-notice-container {
+    height: 35vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+footer {
+    margin-top: 2px;
+    width: 100%;
+    background-color: var(--bs-gray-200);
+}
+
+footer a {
+    color: var(--tart-orange);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--jet)
+}
+
+/* Fix footer scroll */
+@media (max-width: 1228px) {
+
+    footer h4,
+    footer h3 {
+        font-size: 1rem;
+    }
+
+    img,
+    svg {
+        vertical-align: middle;
+        width: 100px;
+    }
+
+}
+
+/* fixed top navbar only on medium and up */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+        padding-top: 150px;
+    }
+}
+
+.page-spacer {
+    padding-top: 200px;
+}
+
+/* pad the top a bit when navbar is collapsed on mobile */
+@media (max-width: 997px) {
+    .header-container {
+        padding-top: 146px;
+    }
+
+    body {
+        height: calc(100vh - 110px) !important;
+        font-size: 0.7rem;
+        background-position-y: 4.4rem;
+    }
+
+    .navbar-toggler-icon {
+        padding: .4rem .4rem;
+        font-size: 1rem;
+    }
+
+    .nav-link {
+        padding: 0.1rem;
+    }
+
+    .nav-link i.fa-lg {
+        font-size: 1rem;
+    }
+
+    .dropdown-toggle::after {
+        content: none;
+    }
+
+    .dropdown-menu {
+        font-size: 0.8rem;
+    }
+
+    .main-logo {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .go-shop-btn {
+        background: var(--rich-black);
+        color: var(--tart-orange);
+        min-width: 100px;
+        font-weight: 400;
+        font-size: 1rem;
+    }
+
+    .voucher-banner h4,
+    voucher-banner a {
+        font-size: 1rem;
+        color: white;
+    }
+
+    /* toast messages */
+    .message-container {
+        width: 80vw;
+    }
+
+    main {
+        margin-top: 110px;
+        height: calc(100vh - 110px) !important;
+    }
+
+    .auth-container,
+    .container-main {
+        /* min-height: calc(100vh - 110px); */
+        min-height: calc(100vh - 300px);
+    }
+}
