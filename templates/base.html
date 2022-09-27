@@ -93,7 +93,7 @@
                 {% if user.is_staff %}
                   <!-- Administrator Role Options -->
                     <li><a class="dropdown-item" href="{% url 'maintain_facilities' %}">Maintain Facility Codes</a></li>
-                    <li><a class="dropdown-item" href="#">Maintain Room Types</a></li>
+                    <li><a class="dropdown-item" href="{% url 'maintain_room_types' %}">Maintain Room Types</a></li>
                 {% endif %}
                 <li><a class="dropdown-item" href="#">View Booking Codes</a></li>
                 <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>

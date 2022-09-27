@@ -168,6 +168,10 @@ a {
     z-index: -1;
 }
 
+.btn-ok {
+    color: var(--baby-powder);
+    background-color: var(--jet);
+}
 .btn-ok:hover {
     color: var(--baby-powder);
     background-color: var(--grey);
