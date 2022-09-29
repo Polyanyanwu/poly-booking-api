@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'fontawesomefree',
+    'rest_framework',
     'home',
     'api',
 ]

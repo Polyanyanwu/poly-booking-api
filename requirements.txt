@@ -4,9 +4,11 @@ dj-database-url==1.0.0
 Django==4.1.1
 django-allauth==0.51.0
 django-crispy-forms==1.14.0
+djangorestframework==3.14.0
 fontawesomefree==5.15.3
 gunicorn==20.1.0
 oauthlib==3.2.1
+Pillow==9.2.0
 psycopg2-binary==2.9.3
 PyJWT==2.5.0
 python3-openid==3.2.0
