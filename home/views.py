@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import requests
 from requests.auth import HTTPBasicAuth
 from django.conf import settings
+from django.contrib import messages
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from api.serializers import HotelSerializer
@@ -28,10 +29,12 @@ def index(request):
 
     app_url = settings.APP_URL.strip()
     response = requests.get(app_url + '/api/hotels')
-
+    hotels = response
     if response.status_code == 200:
-        response = response.json()
-        # print(hotels)
-    home_msg = response
-    print("response==", response)
-    return render(request, 'home/index.html', {'msg': home_msg})
+        try:
+            hotels = response.json()
+        except requests.exceptions.JSONDecodeError:
+            messages.error(request,
+                           "Could not retrieve hotels, Please try later")
+
+    return render(request, 'home/index.html', {'hotels': hotels})

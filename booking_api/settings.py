@@ -36,7 +36,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 development = os.environ.get('DEVELOPMENT', False)
 CSRF_TRUSTED_ORIGINS = [os.environ.get("TRUSTED_ORIGIN")]
 
-APP_URL = os.environ.get("TRUSTED_ORIGIN")
+APP_URL = os.environ.get("APP_URL")
 
 if development:
     ALLOWED_HOSTS = ['localhost', os.environ.get("HEROKU_HOSTNAME")]

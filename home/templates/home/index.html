@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block content %}
-    <div class="container-fluid container-main">
-        <div class="row h-100">
-            <div class="col-6 col-md-4 my-auto">
+<div class="container container-main">
+    <div class="row h-100">
+        <!-- <div class="col-6 col-md-4 my-auto">
                 <h3 class="main-logo text-black">
    
                 </h3>
@@ -13,18 +14,33 @@
                         <a href="#" class="go-shop-btn btn btn-lg py-2">Shop Now</a>
                     </h5>
                 </div>
+            </div> -->
+        <!-- <div class="col-8 col-md-8 my-auto"> -->
+        {% for hotel in hotels %}
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <img class="img-cover img-fluid" src={{hotel.image_url}} alt={{hotel.name}}>
             </div>
-            <div class="col-6 my-auto">
-                {% for ms in msg %} 
-                <div>
-                    {{ms.name}}
-                    {{ms.address}}
-                    {{ms.hotel_rooms}}
-                    <br>
-                    {{ms}}
-                </div>
-                {% endfor %} 
-                </div>
+            <div class="col-sm-8 col-md-6 ml-2">
+                <h4>{{hotel.name}} {{hotel.rating}}</h4>
+                <p>{{hotel.brief_description}}</p>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <h4>Excellent</h4>
+                <button class="btn btn-success">Show Details</button>
+            </div>
+            <!-- {{hotel.hotel_general_facility}}
+            {% for room in hotel.hotel_rooms %}
+            <div>{{room.room_type}}</div>
+            <div>{{room.price}}</div>
+            <div>{{room.on_sale}}</div>
+            {{room.sale_price}}
+            {{room.quantity}}
+            {% endfor %} -->
+            {% endfor %}
         </div>
+
+        <!-- </div> -->
     </div>
+</div>
 {% endblock %}
