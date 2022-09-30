@@ -27,6 +27,7 @@
    "cSpell.ignoreWords": [
       "allauth",
       "authtoken",
+      "cloudinary",
       "fontawesomefree"
    ]
 }
