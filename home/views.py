@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 import requests
 from requests.auth import HTTPBasicAuth
@@ -15,7 +15,18 @@ def index(request):
     """ A view to return the index page """
 
     app_url = settings.APP_URL.strip()
-    response = requests.get(app_url + '/api/hotels')
+    if 'search' in request.GET:
+        criteria = request.GET['search']
+        if not criteria:
+            messages.error(request, "Please enter a search criteria\
+                    before searching!")
+            return redirect(reverse('home'))
+        url = app_url + '/api/hotels?search=' + criteria
+
+    else:
+        url = app_url + '/api/hotels'
+    print('url===', url)
+    response = requests.get(url)
     hotels = response
     if response.status_code == 200:
         try:

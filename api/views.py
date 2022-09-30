@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.db import transaction
+from django.db.models import Q
 from django.core.paginator import Paginator
 
 from rest_framework.views import APIView
@@ -185,6 +186,13 @@ class HotelListApiView(APIView):
         List all the hotel rooms for given requested user
         '''
         hotels = Hotel.objects.all()
+        # print("request get==", request.GET)
+        if 'search' in request.GET:
+            criteria = request.GET['search']
+            if criteria:
+                hotels = hotels.filter(
+                    (Q(name__icontains=criteria) | Q(
+                        city__icontains=criteria)))
         serializer = HotelSerializer(hotels, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
