@@ -165,6 +165,16 @@ def maintain_room_types(request):
     })
 
 
+def list_codes(request):
+    room_types = RoomType.objects.all().order_by('name')
+    facility_codes = FacilityCode.objects.all().order_by('name')
+
+    return render(request, 'api/codes_list.html', {
+        'room_types': room_types,
+        'facility_codes': facility_codes,
+    })
+
+
 class HotelListApiView(APIView):
     # add permission to check if user is authenticated
     # permission_classes = [permissions.IsAuthenticated]

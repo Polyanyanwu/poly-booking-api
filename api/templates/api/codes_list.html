@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}- facilities {% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container-fluid container-main">
+    <div class="row">
+        <div class="col text-center">
+            <h4>Facility and Room Type Codes List</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+            <div class="row justify-content-center">
+
+                <div class="col-12 col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Facility</th>
+                                <th scope="col">Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in facility_codes %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{item.name}}</td>
+                                <td>{{item.id}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Room Type</th>
+                                <th scope="col">Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in room_types %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{item.name}}</td>
+                                <td>{{item.id}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+    </div>
+</div>
+{% endblock %}
