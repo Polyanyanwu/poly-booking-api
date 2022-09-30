@@ -6,7 +6,16 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.db import transaction
 from django.core.paginator import Paginator
-from .models import FacilityCode, RoomType
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import permissions
+
+from api.serializers import \
+    (HotelSerializer, HotelRoomSerializer,
+     RoomTypeSerializer, GeneralFacilitySerializer, FacilityCodeSerializer)
+from .models import FacilityCode, RoomType, Hotel, HotelRoom, HotelRoomFacility
 from .forms import FacilityCodeForm, RoomTypeForm
 
 
@@ -154,3 +163,17 @@ def maintain_room_types(request):
         'form': form,
         'room_types': page_obj,
     })
+
+
+class HotelListApiView(APIView):
+    # add permission to check if user is authenticated
+    # permission_classes = [permissions.IsAuthenticated]
+
+    # 1. List all Hotels
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the hotel rooms for given requested user
+        '''
+        hotels = Hotel.objects.all()
+        serializer = HotelSerializer(hotels, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -60,7 +60,7 @@ class HotelRoom(models.Model):
     """
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE,
                                  null=False, blank=False,
-                                 related_name='hotel')
+                                 related_name='hotel_rooms')
     room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL,
                                   null=True, blank=True,
                                   related_name='room_type')
@@ -73,7 +73,7 @@ class HotelRoom(models.Model):
     quantity = models.SmallIntegerField(default=0, null=False, blank=False)
 
     def __str__(self):
-        return self.room_type
+        return self.room_type.name
 
 
 class HotelRoomFacility(models.Model):
@@ -90,7 +90,7 @@ class HotelRoomFacility(models.Model):
                                  related_name='hotel_facility')
 
     def __str__(self):
-        return self.facility
+        return self.facility.name
 
 
 class GeneralFacility(models.Model):
@@ -98,10 +98,10 @@ class GeneralFacility(models.Model):
     """
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE,
                                  null=False, blank=False,
-                                 related_name='facility_hotel_id')
+                                 related_name='hotel_general_facility')
     facility = models.ForeignKey(FacilityCode, on_delete=models.SET_NULL,
                                  null=True, blank=True,
                                  related_name='general_facility')
 
     def __str__(self):
-        return self.facility
+        return self.facility.name
