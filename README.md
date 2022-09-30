@@ -16,6 +16,9 @@ The Poly Booking API is a website designed to demonstrate hosting a hotel bookin
   - [**User Stories**](#user-stories)
     - [**Wireframes**](#wireframes)
   - [Database](#database)
+  - [API End Points](#api-end-points)
+    - [Authorization Token](#authorization-token)
+    - [API URL](#api-url)
 
 ## **Objectives of the Site**
 
@@ -47,3 +50,33 @@ Wireframes were designed at the onset of the project and guided the development 
 The application will use the Postgres Database and initial entity diagram is given below:
 
 ![Database Entity Diagram](/docs/poly_booking_ed.png)
+
+## API End Points
+
+### Authorization Token
+
+To obtain authorization token by registered users to be able to post data, you need to send a POST request to:
+  ```https://poly-booking-api.herokuapp.com//api-token-auth/```
+in the body of the POST message add your username and password as follows:
+
+```
+{
+    "username": "xxx",
+    "password": "xxxx"
+}
+```
+You will be provided with a response like this:
+
+```{
+    "token": "13ecc0xxxfa6286485924f97abaa11105dca2385"
+}```
+
+For your POST requests to be authenticated, the token key should be included in the Authorization HTTP header. The key should be prefixed by the string literal "Token", with whitespace separating the two strings. For example:
+
+Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
+
+
+### API URL
+
+1. Get list of all hotels: ```https://poly-booking-api.herokuapp.com/api/hotels```
+2. 

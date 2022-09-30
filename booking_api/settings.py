@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'fontawesomefree',
     'rest_framework',
+    'rest_framework.authtoken',
     'home',
     'api',
 ]
@@ -116,6 +117,12 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend"
 )
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Database
