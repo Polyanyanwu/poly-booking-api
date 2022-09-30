@@ -18,7 +18,6 @@ The Poly Booking API is a website designed to demonstrate hosting a hotel bookin
   - [Database](#database)
   - [API End Points](#api-end-points)
     - [Authorization Token](#authorization-token)
-    - [API URL](#api-url)
 
 ## **Objectives of the Site**
 
@@ -78,5 +77,51 @@ Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
 
 ### API URL
 
-1. Get list of all hotels: ```https://poly-booking-api.herokuapp.com/api/hotels```
-2. 
+1. Get list of all hotels: 
+  GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
+2. Post Hotel Data, include hotel rooms and hotel general facilities:
+  POST method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
+```
+    {
+        "name": "xxStation",
+        "brief_description": "Travel xx",
+        "full_description": "Located in Nagaoka,xx",
+        "rating": 4.00,
+        "address": "string ",
+        "city": "string",
+        "contact_email": "gmail",
+        "contact_name": string",
+        "contact_phone": "string",
+        "image_url": "https://t-cfurl",
+        "free_cancel_limit": hours in numbers,
+        "prepayment_needed": true or false,
+        "hotel_rooms": [
+            {
+              "room_type": code number,
+                "price": decimal,
+                "on_sale": true or false,
+                "quantity": integer,
+                "sale_price": decimal,
+                "breakfast_included": true or false
+            },
+             {
+               "room_type": code number, 
+                "price": decimal,
+                "on_sale": true or false,
+                "quantity": integer,
+                "sale_price": decimal,
+                "breakfast_included": true or false
+            }
+        ],
+        "hotel_general_facility": [
+            {
+                "facility": code number
+            },
+            {
+                "facility": code number
+            }
+        ]
+    }
+```
+
+Note that Authorization token is required for the POST method.

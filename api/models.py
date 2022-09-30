@@ -59,7 +59,7 @@ class HotelRoom(models.Model):
     """ Model that for storing hotel room record
     """
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE,
-                                 null=False, blank=False,
+                                 null=True, blank=True,
                                  related_name='hotel_rooms')
     room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL,
                                   null=True, blank=True,

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_writable_nested import WritableNestedModelSerializer
 
 from .models import \
     (FacilityCode, GeneralFacility, Hotel,
@@ -33,11 +34,12 @@ class HotelRoomSerializer(serializers.ModelSerializer):
                   'breakfast_included')
 
 
-class HotelSerializer(serializers.ModelSerializer):
+class HotelSerializer(WritableNestedModelSerializer,
+                      serializers.ModelSerializer):
 
     # hotel_rooms = serializers.StringRelatedField(many=True)
-    hotel_rooms = HotelRoomSerializer(many=True, read_only=True)
-    hotel_general_facility = GeneralFacilitySerializer(many=True, read_only=True)
+    hotel_rooms = HotelRoomSerializer(many=True)
+    hotel_general_facility = GeneralFacilitySerializer(many=True)
 
     class Meta:
         model = Hotel
