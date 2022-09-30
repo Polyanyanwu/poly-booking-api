@@ -34,7 +34,7 @@ CSRF_TRUSTED_ORIGINS = [os.environ.get("TRUSTED_ORIGIN")]
 APP_URL = os.environ.get("TRUSTED_ORIGIN")
 
 if development:
-    ALLOWED_HOSTS = ['localhost', os.environ.get("HEROKU_HOSTNAME"), APP_URL]
+    ALLOWED_HOSTS = ['localhost', os.environ.get("HEROKU_HOSTNAME")]
     DEBUG = True
 else:
     ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
