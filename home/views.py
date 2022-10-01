@@ -38,3 +38,18 @@ def index(request):
                            "Could not retrieve hotels, Please try later")
 
     return render(request, 'home/index.html', {'hotels': hotels})
+
+
+def hotel_details(request, hotel_id):
+
+    url = settings.APP_URL + '/api/hotels/' + str(hotel_id) + "/"
+    response = requests.get(url)
+    hotels = None
+    if response.status_code == 200:
+        try:
+            hotels = response.json()
+        except requests.exceptions.JSONDecodeError:
+            messages.error(request,
+                           "Could not retrieve hotel, Please try later")
+    return render(request, 'home/hotel_details.html',
+                  {'hotels': hotels})

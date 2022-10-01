@@ -19,9 +19,7 @@
         {% for hotel in hotels %}
         <div class="row">
             <div class="col-sm-12 col-md-4 mb-2">
-                <a href="{% url 'hotel_details' hotel.id %}">
-                    <img class="img-cover img-fluid" src={{hotel.image_url}} alt={{hotel.name}}>
-                </a>
+                <img class="img-cover img-fluid" src={{hotel.image_url}} alt={{hotel.name}}>
             </div>
             <div class="col-sm-8 col-md-6 ml-2">
                 <h4>{{hotel.name}} {{hotel.rating}}</h4>
@@ -29,10 +27,7 @@
             </div>
             <div class="col-sm-4 col-md-2">
                 <h4>Excellent</h4>
-                <a href="{% url 'hotel_details' hotel.id %}" class="btn btn btn-success mb-2">
-                    Show Details
-                </a>
-                <!-- <button class="btn btn-success mb-2">Show Details</button> -->
+                <button class="btn btn-success mb-2">Show Details</button>
             </div>
             <!-- {{hotel.hotel_general_facility}}
             {% for room in hotel.hotel_rooms %}
