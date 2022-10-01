@@ -24,8 +24,16 @@ class RoomTypeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class HotelRoomFacilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HotelRoomFacility
+        fields = ('id', 'hotel_id', 'room_type', 'facility')
+        # fields = '__all__'
+
+
 class HotelRoomSerializer(serializers.ModelSerializer):
-    # hotel_id = HotelSerializer(many=True, read_only=True)
+
+    # room_type = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = HotelRoom
@@ -37,7 +45,6 @@ class HotelRoomSerializer(serializers.ModelSerializer):
 class HotelSerializer(WritableNestedModelSerializer,
                       serializers.ModelSerializer):
 
-    # hotel_rooms = serializers.StringRelatedField(many=True)
     hotel_rooms = HotelRoomSerializer(many=True)
     hotel_general_facility = GeneralFacilitySerializer(many=True)
 

@@ -52,7 +52,7 @@ class Hotel(models.Model):
                                    related_name='orders')
 
     class Meta:
-        # Prevent submission of same hotel name from same city
+        # Prevent multiple submission of same hotel name from same city
         unique_together = ('name', 'city',)
 
     def __str__(self):
@@ -76,6 +76,10 @@ class HotelRoom(models.Model):
     breakfast_included = models.BooleanField(default=False)
     quantity = models.SmallIntegerField(default=0, null=False, blank=False)
 
+    class Meta:
+        # Prevent multiple submission of same hotel and room type
+        unique_together = ('hotel_id', 'room_type')
+
     def __str__(self):
         return self.room_type.name
 
@@ -92,6 +96,10 @@ class HotelRoomFacility(models.Model):
     facility = models.ForeignKey(FacilityCode, on_delete=models.SET_NULL,
                                  null=True, blank=True,
                                  related_name='hotel_facility')
+
+    class Meta:
+        # Prevent multiple submission of same hotel, room type and facility
+        unique_together = ('hotel_id', 'room_type', 'facility')
 
     def __str__(self):
         return self.facility.name

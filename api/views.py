@@ -213,7 +213,6 @@ class HotelListApiView(APIView):
         Create the Hotel with given data
         include hotel rooms and hotel facilities
         '''
-        # permission_classes = [permissions.IsAuthenticated]
         serializer = HotelSerializer(data=request.data)
         room_serializer = HotelRoomSerializer(data=request.data['hotel_rooms'])
 
@@ -288,5 +287,138 @@ class HotelDetailListApiView(APIView):
         hotel_instance.delete()
         return Response(
             {"response": "Hotel deleted!"},
+            status=status.HTTP_200_OK
+        )
+
+
+class HotelRoomListApiView(APIView):
+    """
+    API for creating and displaying hotel rooms
+    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_hotel_object(self, hotel_id, user_id):
+        '''
+        Helper method to get the hotel object with id
+        '''
+        try:
+            return Hotel.objects.get(id=hotel_id, created_by__id=user_id)
+        except Hotel.DoesNotExist:
+            return None
+
+    # 1. List all Hotel Rooms
+    def get(self, request, hotel_id, *args, **kwargs):
+        '''
+        List all the hotel rooms for given hotel id
+        '''
+        hotel_rooms = HotelRoom.objects.filter(hotel_id__id=hotel_id)
+        if hotel_rooms.count() == 0:
+            return Response(
+                {"response": "Hotel rooms for Hotel id: " + str(
+                    hotel_id) + " not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = HotelRoomSerializer(hotel_rooms, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # POST - Create new hotel room record
+    def post(self, request, hotel_id, *args, **kwargs):
+        '''
+        Create the Hotel room with given data
+        '''
+        hotel_instance = self.get_hotel_object(hotel_id, request.user.id)
+        if not hotel_instance:
+            return Response(
+                {"response": "Hotel with Hotel id: " + str(
+                    hotel_id) + " and user does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        response_data = []
+        for item in range(len(request.data)):
+            serializer = HotelRoomSerializer(data=request.data[item])
+
+            if not serializer.is_valid():
+                return Response(serializer.errors,
+                                status=status.HTTP_400_BAD_REQUEST)
+            serializer.validated_data['hotel_id'] = hotel_instance
+            serializer.save()
+            response_data.append(serializer.data)
+        return Response(response_data, status=status.HTTP_201_CREATED)
+
+
+class HotelRoomDetailsApiView(APIView):
+    """
+    API for updating/deleting hotel rooms
+    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_hotel_object(self, hotel_id, user_id):
+        '''
+        Helper method to get the hotel object with id
+        '''
+        try:
+            return Hotel.objects.get(id=hotel_id, created_by__id=user_id)
+        except Hotel.DoesNotExist:
+            return None
+
+    # PUT Update hotel room record
+    def put(self, request, hotel_id, room_id, *args, **kwargs):
+        '''
+        Update the Hotel room with given data
+        '''
+        hotel_instance = self.get_hotel_object(hotel_id, request.user.id)
+        if not hotel_instance:
+            return Response(
+                {"response": "Hotel with Hotel id: " + str(
+                    hotel_id) + " and user does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        hotel_room = HotelRoom.objects.filter(
+            hotel_id=hotel_instance.id, id=room_id)
+
+        if hotel_room.count() == 0:
+            return Response(
+                {"response": "Hotel room for Hotel id: " + str(
+                    hotel_id) + " and Room: " + str(
+                        room_id) + " does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = HotelRoomSerializer(instance=hotel_room[0],
+                                         data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Delete a given hotel room id
+    def delete(self, request, hotel_id, room_id, *args, **kwargs):
+        '''
+        Deletes the hotel record with given hotel_id if exists
+        '''
+
+        hotel_instance = self.get_hotel_object(hotel_id, request.user.id)
+        if not hotel_instance:
+            return Response(
+                {"response": "Hotel with Hotel id: " + str(
+                    hotel_id) + " and user does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        hotel_room = HotelRoom.objects.filter(
+            hotel_id=hotel_instance.id, id=room_id)
+
+        if hotel_room.count() == 0:
+            return Response(
+                {"response": "Hotel room for Hotel id: " + str(
+                    hotel_id) + " and Room: " + str(
+                        room_id) + " does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        hotel_room[0].delete()
+        return Response(
+            {"response": "Hotel room deleted!"},
             status=status.HTTP_200_OK
         )

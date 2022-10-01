@@ -141,3 +141,53 @@ GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotels/<hote
 **5. Delete a specific hotel**
 DELETE method end point: ```https://poly-booking-api.herokuapp.com/api/hotels/<hotel id>/```
 Authorization is required and validation of the user is done.
+
+6. Get lis of hotel rooms
+GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/```
+
+7. Create new Hotel Room record:
+POST method end point ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/```
+Expects list of hotel rooms:
+
+```
+  [
+    {
+      "hotel_id":id number,
+      "room_type": room type code,
+      "price": decimal,
+      "on_sale": true,
+      "quantity": number,
+      "sale_price": decimal,
+      "breakfast_included": true/false
+    },
+    {
+      "hotel_id": 1,
+      "room_type": 5,
+      "price": "90.00",
+      "on_sale": true,
+      "quantity": 3,
+      "sale_price": "60.00",
+      "breakfast_included": true
+    }
+  ]
+
+```
+8. Update Hotel Room details:
+
+PUT method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/<room_id>/```
+
+```
+    {
+      "price": decimal,
+      "on_sale": true,
+      "quantity": number,
+      "sale_price": decimal,
+      "breakfast_included": true/false
+    }
+```
+
+Although room type could be added as a field to be updated, however care should be taken as same room type for the same hotel is not permitted to be added more than once.
+
+9. Delete a specific hotel room:
+DELETE method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/<room_id>/```
+Authorization is required and validation of the user is done.
