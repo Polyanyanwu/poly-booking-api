@@ -14,7 +14,7 @@ from rest_framework import status
 from rest_framework import permissions
 
 from api.serializers import \
-    (HotelSerializer, HotelRoomSerializer,
+    (HotelSerializer, HotelRoomSerializer, HotelRoomFacilitySerializer,
      RoomTypeSerializer, GeneralFacilitySerializer, FacilityCodeSerializer)
 from .models import FacilityCode, RoomType, Hotel, HotelRoom, HotelRoomFacility
 from .forms import FacilityCodeForm, RoomTypeForm
@@ -422,3 +422,99 @@ class HotelRoomDetailsApiView(APIView):
             {"response": "Hotel room deleted!"},
             status=status.HTTP_200_OK
         )
+
+
+class HotelRoomFacilityListApiView(APIView):
+    """
+    API for displaying or adding Hotel
+    Room facilities
+    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_hotel_object(self, hotel_id, user_id):
+        '''
+        Helper method to get the hotel object with id
+        '''
+        try:
+            return Hotel.objects.get(id=hotel_id, created_by__id=user_id)
+        except Hotel.DoesNotExist:
+            return None
+
+    # Get list of room facilities for hotel room type record
+    def get(self, request, hotel_id, room_type_id, *args, **kwargs):
+        '''
+        Display the room facilities
+        '''
+        hotel = Hotel.objects.filter(id=hotel_id)
+        if hotel.count() == 0:
+            return Response({"response": "Hotel with ID: " + str(
+                            hotel_id) + " not found"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        room_type = HotelRoomFacility.objects.filter(
+            hotel_id=hotel[0].id, room_type__id=room_type_id)
+
+        if room_type.count() == 0:
+            return Response(
+                {"response": "Room type room for Hotel id: " + str(
+                    hotel_id) + " and Room type: " + str(
+                        room_type_id) + " does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        room_facilities = HotelRoomFacility.objects.filter(
+            hotel_id=hotel[0], room_type__id=room_type_id)
+
+        serializer = HotelRoomFacilitySerializer(room_facilities, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def get_hotel_object(self, hotel_id, user_id):
+        '''
+        Helper method to get the hotel object with id
+        '''
+        try:
+            return Hotel.objects.get(id=hotel_id, created_by__id=user_id)
+        except Hotel.DoesNotExist:
+            return None
+
+    # Add hotel room facility for hotel room type record
+    def post(self, request, hotel_id, room_type_id, *args, **kwargs):
+        '''
+        Add the room facility
+        '''
+        hotel = Hotel.objects.filter(id=hotel_id)
+        if hotel.count() == 0:
+            return Response({"response": "Hotel with ID: " + str(
+                            hotel_id) + " not found"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        room_type = RoomType.objects.filter(id=room_type_id)
+
+        if room_type.count() == 0:
+            return Response(
+                {"response": "Room type room for Hotel id: " + str(
+                    hotel_id) + " and Room type: " + str(
+                        room_type_id) + " does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        response_data = []
+        for item in range(len(request.data)):
+            request.data[item]['hotel_id'] = hotel[0].pk
+            request.data[item]['room_type'] = room_type[0].pk
+            facility_code = request.data[item]['facility']
+            facility = FacilityCode.objects.filter(id=facility_code)
+            if facility.count() == 0:
+                return Response(
+                    {"response": "Facility code: " + str(
+                        facility_code) + " does not exist"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            request.data[item]['facility'] = facility[0].pk
+            serializer = HotelRoomFacilitySerializer(data=request.data[item])
+
+            if not serializer.is_valid():
+                return Response(serializer.errors,
+                                status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            response_data.append(serializer.data)
+        return Response(response_data, status=status.HTTP_201_CREATED)

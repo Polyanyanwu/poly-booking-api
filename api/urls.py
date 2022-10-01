@@ -12,5 +12,7 @@ urlpatterns = [
     path('hotel-room/<int:hotel_id>/', views.HotelRoomListApiView().as_view()),
     path('hotel-room/<int:hotel_id>/<int:room_id>/',
          views.HotelRoomDetailsApiView().as_view()),
+    path('room-facility/<int:hotel_id>/<int:room_type_id>/',
+         views.HotelRoomFacilityListApiView().as_view()),
     path('list_codes', views.list_codes, name='list_codes'),
 ]

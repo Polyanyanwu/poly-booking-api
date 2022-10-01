@@ -191,3 +191,27 @@ Although room type could be added as a field to be updated, however care should 
 9. Delete a specific hotel room:
 DELETE method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/<room_id>/```
 Authorization is required and validation of the user is done.
+
+10. Get lis of hotel room type facilities
+GET method end point: ```https://poly-booking-api.herokuapp.com/api/room-facility/<hotel id>/<room type>/```
+
+11. Add new facility to hotel room type:
+POST method end point ```https://poly-booking-api.herokuapp.com/api/room-facility/<hotel id>/<room type>/```
+Expects list of facility codes in the body of the request:
+
+```
+    [
+      {
+        "facility": 14
+      },
+      {
+        "facility": 3
+      },
+        
+        {
+        "facility": 10
+      }
+    ]
+```
+Response is given as list of all created records.
+Validation is done and error messages are displayed where appropriate.
