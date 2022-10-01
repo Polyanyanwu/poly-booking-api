@@ -8,7 +8,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from api.serializers import HotelSerializer
 from api.models import Hotel
-# Create your views here.
 
 
 def index(request):
@@ -25,9 +24,12 @@ def index(request):
 
     else:
         url = app_url + '/api/hotels'
-    print('url===', url)
     response = requests.get(url)
     hotels = response
+
+    if 'name' not in hotels.text:  # no hotel found
+        messages.warning(request,
+                         "No hotels matching your criteria, Please try again")
     if response.status_code == 200:
         try:
             hotels = response.json()

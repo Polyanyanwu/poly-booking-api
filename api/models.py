@@ -51,6 +51,10 @@ class Hotel(models.Model):
                                    null=True, blank=True,
                                    related_name='orders')
 
+    class Meta:
+        # Prevent submission of same hotel name from same city
+        unique_together = ('name', 'city',)
+
     def __str__(self):
         return self.name
 

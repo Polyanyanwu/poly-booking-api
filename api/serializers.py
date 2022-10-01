@@ -46,5 +46,5 @@ class HotelSerializer(WritableNestedModelSerializer,
         fields = ['id', 'name', 'brief_description',
                   'full_description', 'rating', 'address', 'city',
                   'contact_email', 'contact_name', 'contact_phone',
-                  'image_url', 'image', 'free_cancel_limit',
+                  'image_url', 'image', 'free_cancel_limit', 'created_by',
                   'prepayment_needed', 'hotel_rooms', 'hotel_general_facility']

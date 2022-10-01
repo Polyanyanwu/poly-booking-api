@@ -178,15 +178,26 @@ def list_codes(request):
 
 class HotelListApiView(APIView):
     # add permission to check if user is authenticated
-    # permission_classes = [permissions.IsAuthenticated]
+    # for POST, DELETE and PUT
 
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_hotel_object(self, hotel_id, user_id):
+        '''
+        Helper method to get the hotel object with id
+        '''
+        try:
+            return Hotel.objects.get(id=hotel_id, created_by__id=user_id)
+        except Hotel.DoesNotExist:
+            return None
     # 1. List all Hotels
+
     def get(self, request, *args, **kwargs):
         '''
         List all the hotel rooms for given requested user
         '''
         hotels = Hotel.objects.all()
-        # print("request get==", request.GET)
+
         if 'search' in request.GET:
             criteria = request.GET['search']
             if criteria:
@@ -196,17 +207,86 @@ class HotelListApiView(APIView):
         serializer = HotelSerializer(hotels, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    # POST - Create new hotel record
     def post(self, request, *args, **kwargs):
         '''
         Create the Hotel with given data
         include hotel rooms and hotel facilities
         '''
-        permission_classes = [permissions.IsAuthenticated]
+        # permission_classes = [permissions.IsAuthenticated]
         serializer = HotelSerializer(data=request.data)
         room_serializer = HotelRoomSerializer(data=request.data['hotel_rooms'])
 
         if serializer.is_valid():
+            serializer.validated_data['created_by'] = request.user
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class HotelDetailListApiView(APIView):
+    # add permission to check if user is authenticated
+    # for POST, DELETE and PUT
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_hotel_object(self, hotel_id, user_id):
+        '''
+        Helper method to get the hotel object with id
+        '''
+        try:
+            return Hotel.objects.get(id=hotel_id, created_by__id=user_id)
+        except Hotel.DoesNotExist:
+            return None
+
+    # 1. List details of a specific Hotel
+    def get(self, request, hotel_id, *args, **kwargs):
+        '''
+        List the hotel details for given hotel
+        '''
+        hotels = Hotel.objects.filter(id=hotel_id)
+        if hotels.count() == 0:
+            return Response({"response": "Hotel with ID: " + str(
+                            hotel_id) + " not found"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        serializer = HotelSerializer(hotels, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # PUT - Update hotel record
+    def put(self, request, hotel_id, *args, **kwargs):
+        '''
+        Updates the hotel record with given hotel_id if exists
+        '''
+        hotel_instance = self.get_hotel_object(hotel_id, request.user.id)
+        if not hotel_instance:
+            return Response(
+                {"response":
+                 "Object with Hotel id does not exists for this user"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = HotelSerializer(instance=hotel_instance,
+                                     data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Delete a given hotel id
+    def delete(self, request, hotel_id, *args, **kwargs):
+        '''
+        Deletes the hotel record with given hotel_id if exists
+        '''
+        hotel_instance = self.get_hotel_object(hotel_id, request.user.id)
+        if not hotel_instance:
+            return Response(
+                {"response": "Hotel with Hotel id: " + str(
+                    hotel_id) + " does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        hotel_instance.delete()
+        return Response(
+            {"response": "Hotel deleted!"},
+            status=status.HTTP_200_OK
+        )

@@ -55,7 +55,7 @@ The application will use the Postgres Database and initial entity diagram is giv
 ### Authorization Token
 
 To obtain authorization token by registered users to be able to post data, you need to send a POST request to:
-  ```https://poly-booking-api.herokuapp.com//api-token-auth/```
+  ```https://poly-booking-api.herokuapp.com/api-token-auth/```
 in the body of the POST message add your username and password as follows:
 
 ```
@@ -77,11 +77,14 @@ Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
 
 ### API URL
 
-1. Get list of all hotels: 
+**1. Get list of all hotels: **
   GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
-2. Post Hotel Data, include hotel rooms and hotel general facilities:
+
+**2. Post Hotel Data, include hotel rooms and hotel general facilities:**
   POST method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
+
 ```
+
     {
         "name": "xxStation",
         "brief_description": "Travel xx",
@@ -122,6 +125,19 @@ Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
             }
         ]
     }
+
 ```
 
 Note that Authorization token is required for the POST method.
+
+**3. Update Hotel Data, include hotel rooms and hotel general facilities:**
+PUT method end point: ```https://poly-booking-api.herokuapp.com/api/hotels/<hotel id>/```
+The JSON structure for the body is same as in the POST but the request end point has to include the hotel id to be updated.
+Also the user is validated to enure you are updating your won hotels.
+
+**4. Get details of a specific hotel.**
+GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotels/<hotel id>/```
+
+**5. Delete a specific hotel**
+DELETE method end point: ```https://poly-booking-api.herokuapp.com/api/hotels/<hotel id>/```
+Authorization is required and validation of the user is done.

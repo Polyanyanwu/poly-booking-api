@@ -8,7 +8,7 @@ from .models import Hotel, GeneralFacility, HotelRoom, HotelRoomFacility
 @admin.register(Hotel)
 class HotelAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'brief_description',
-                    'full_description', 'rating', 'address', 'city',
+                    'rating', 'address', 'city',
                     'contact_email', 'contact_name', 'contact_phone',
                     'image_url', 'image', 'free_cancel_limit',
                     'prepayment_needed', 'created_by'
