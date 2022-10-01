@@ -467,25 +467,18 @@ class HotelRoomFacilityListApiView(APIView):
         serializer = HotelRoomFacilitySerializer(room_facilities, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def get_hotel_object(self, hotel_id, user_id):
-        '''
-        Helper method to get the hotel object with id
-        '''
-        try:
-            return Hotel.objects.get(id=hotel_id, created_by__id=user_id)
-        except Hotel.DoesNotExist:
-            return None
-
     # Add hotel room facility for hotel room type record
     def post(self, request, hotel_id, room_type_id, *args, **kwargs):
         '''
         Add the room facility
         '''
-        hotel = Hotel.objects.filter(id=hotel_id)
-        if hotel.count() == 0:
-            return Response({"response": "Hotel with ID: " + str(
-                            hotel_id) + " not found"},
-                            status=status.HTTP_404_NOT_FOUND)
+        hotel = self.get_hotel_object(hotel_id, request.user.id)
+        if not hotel:
+            return Response(
+                {"response": "Hotel with Hotel id: " + str(
+                    hotel_id) + " and user does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
         room_type = RoomType.objects.filter(id=room_type_id)
 
@@ -497,9 +490,16 @@ class HotelRoomFacilityListApiView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+        if not isinstance(request.data, list):
+            return Response(
+                {"response": "Please ensure you are passing " +
+                    " a list of dictionary values"},
+                status=status.HTTP_404_NOT_FOUND
+            )
         response_data = []
+
         for item in range(len(request.data)):
-            request.data[item]['hotel_id'] = hotel[0].pk
+            request.data[item]['hotel_id'] = hotel.pk
             request.data[item]['room_type'] = room_type[0].pk
             facility_code = request.data[item]['facility']
             facility = FacilityCode.objects.filter(id=facility_code)
@@ -518,3 +518,33 @@ class HotelRoomFacilityListApiView(APIView):
             serializer.save()
             response_data.append(serializer.data)
         return Response(response_data, status=status.HTTP_201_CREATED)
+
+    def delete(self, request, hotel_id, room_type_id, *args, **kwargs):
+        '''
+        Remove the room facility
+        '''
+        hotel = self.get_hotel_object(hotel_id, request.user.id)
+        if not hotel:
+            return Response(
+                {"response": "Hotel with Hotel id: " + str(
+                    hotel_id) + " and user does not exist"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        room_type = RoomType.objects.filter(id=room_type_id)
+
+        facility = HotelRoomFacility.objects.filter(
+            facility=request.data['facility'], hotel_id__id=hotel_id,
+            room_type__id=room_type_id)
+        if facility.count() == 0:
+            return Response(
+                    {"response": "Facility for this hotel and\
+                        room type does not exist"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+        facility[0].delete()
+        return Response(
+            {"response": "Facility removed from room!"},
+            status=status.HTTP_200_OK
+        )
