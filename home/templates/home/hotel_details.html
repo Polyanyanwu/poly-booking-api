@@ -1,35 +1,52 @@
 {% extends "base.html" %}
 {% load static %}
+{% load ratings %}
 
 
 {% block content %}
 <div class="container container-main">
     <div class="row h-100">
-        <!-- <div class="col-6 col-md-4 my-auto">
-                <h3 class="main-logo text-black">
-   
-                </h3>
-                <div class="my-5">
-                    <h5>
-                        <a href="#" class="go-shop-btn btn btn-lg py-2">Shop Now</a>
-                    </h5>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    Search
                 </div>
-            </div> -->
-        <!-- <div class="col-8 col-md-8 my-auto"> -->
-        {% for hotel in hotels %}
-        <div class="row">
-            <div class="col-sm-12 col-md-4 mb-2">
-                <img class="img-cover img-fluid" src={{hotel.image_url}} alt={{hotel.name}}>
+                <div class="card-body">
+                    <!-- <h5 class="card-title">Special title treatment</h5> -->
+                    <p class="card-text">Check in, check out placeholder</p>
+                    <a href="#" class="btn btn-primary">Search</a>
+                </div>
             </div>
-            <div class="col-sm-8 col-md-6 ml-2">
-                <h4>{{hotel.name}} {{hotel.rating}}</h4>
-                <p>{{hotel.brief_description}}</p>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-8 ml-2">
+                    <span class="h6">
+                        {% if hotel.rating %}
+                        {% for ind in hotel.rating|rating_dec_main %}
+                        <span class="ms-0 mx-0"><i class="fas fa-star mx-0 small text-danger"></i></span>
+                        {% endfor %}
+                        {% if hotel.rating|rating_dec_fraction %}
+                        <span class="ms-0 mx-0"><i class="fas fa-star-half-stroke text-danger mx-0 small"></i></span>
+                        {% endif %}
+                        {% else %}
+                        <small class="text-muted">No Rating</small>
+                        {% endif %}
+                    </span>
+                    <h4 class="fw-bolder h5">{{hotel.name}}</h4>
+                    <p>{{hotel.address}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="h6"> {{hotel.rating|rating_string}}</h4>
+                    <button class="btn btn-sm btn-primary mb-2">Reserve</button>
+                </div>
             </div>
-            <div class="col-sm-4 col-md-2">
-                <h4>Excellent</h4>
-                <button class="btn btn-success mb-2">Show Details</button>
-            </div>
-            <!-- {{hotel.hotel_general_facility}}
+            <div class="row">
+                <div class="col-sm-10 mb-2">
+                    <img class="img-cover img-fluid w-100" src={{hotel.image_url}} alt={{hotel.name}}>
+                </div>
+
+                <!-- {{hotel.hotel_general_facility}}
             {% for room in hotel.hotel_rooms %}
             <div>{{room.room_type}}</div>
             <div>{{room.price}}</div>
@@ -37,10 +54,77 @@
             {{room.sale_price}}
             {{room.quantity}}
             {% endfor %} -->
-            {% endfor %}
+            </div>
         </div>
-
         <!-- </div> -->
+    </div>
+    <div class="row my-4">
+        <div class="col-sm-8">
+            {{hotel.full_description|safe}}
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fw-bolder">Property Highlights</span>
+                </div>
+                <div class="card-body">
+                    <!-- <h5 class="card-title">Special title treatment</h5> -->
+                    {% for fac in hotel.hotel_general_facility %}
+                        <p class="card-text">{{fac.facility|facility_name}}</p>
+                    {% endfor %}
+                    <a href="#" class="btn btn-primary">Reserve</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Room Type</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Your choices</th>
+                        <!-- <th scope="col"></th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in hotel.hotel_rooms %}
+                    <tr>
+                        <td>{{room.room_type}}
+                            {{hotel.id}}|room_facilities:{{room.room_type}}
+
+                        </td>
+                        <td>€{{room.price}}</td>
+                        <td>
+                            <p class="my-0 text-success">
+                                <i class="fas fa-check small"></i>
+                                Free cancellation until {{hotel.free_cancel_limit|date_from_now | date:'d M, Y H:i a'}}
+                            </p>
+                            <p class="my-0 text-success"> 
+                                <i class="fas fa-check small"></i>
+                                {% if room.breakfast_included %} Breakfast included {% else %} Breakfast excluded {% endif %}
+                            </p>
+                            <p class="my-0 text-success"> 
+                                <i class="fas fa-check small"></i>
+                                {% if hotel.prepayment_needed %} Prepayment needed to confirm booking {% else %} No Prepayment needed - Pay at property {% endif %}
+                            </p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2">
+                <p class="mt-1">
+                    <!-- <hr> -->
+                </p>
+                <button class="btn btn-sm btn-success w-100 mt-4">I'll Reserve</button>
+                <ul>
+                    <li>Confirmation is immediate</li>
+                    <li>No booking or Credit card fees</li>
+                </ul>
+        </div>
     </div>
 </div>
 {% endblock %}

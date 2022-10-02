@@ -51,5 +51,8 @@ def hotel_details(request, hotel_id):
         except requests.exceptions.JSONDecodeError:
             messages.error(request,
                            "Could not retrieve hotel, Please try later")
+    hotel = None
+    if hotels:
+        hotel = hotels[0]
     return render(request, 'home/hotel_details.html',
-                  {'hotels': hotels})
+                  {'hotel': hotel})

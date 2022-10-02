@@ -1,24 +1,55 @@
 
 import math
+import requests
+from datetime import timedelta, datetime
 from django import template
-from api.models import RoomType
+from api.models import RoomType, FacilityCode
 from django.utils.numberformat import Decimal
 
 register = template.Library()
 
 
-@register.filter(name='api_codes')
-def code_name(table, code):
-    if table == 'room_type':
-        record = RoomType.objects.filter(pk=code)
-        if record:
-            return record[0].name
-        return ""
+@register.filter(name='room_facilities')
+def code_name(hotel_id, room_type):
+    print("called room facilities")
+    url = settings.APP_URL + '/api//room-facility/' + hotel_id + "/" + room_type + "/"
+    response = requests.get(url)
+    if response.status_code == 200:
+        try:
+            room_fac = response.json()
+        except requests.exceptions.JSONDecodeError:
+            room_fac = None
+    print(room_fac)
+    print("-------------------------------")
+    return "tested"
+
+
+@register.filter(name='room_type')
+def code_name(code):
+    record = RoomType.objects.filter(pk=code)
+    if record:
+        return record[0].name
+    return ""
+
+
+@register.filter(name='facility_name')
+def code_name(code):
+    record = FacilityCode.objects.filter(pk=int(code))
+    if record:
+        return record[0].name
+    return ""
+
+
+@register.filter(name='date_from_now')
+def code_name(hours):
+    hrs = int(hours)
+    today = datetime.now()
+    today += timedelta(hours=hrs)
+    return today
 
 
 @register.filter(name='rating_string')
 def get_rating_string(rating):
-    print("type rating==", type(rating))
     rating_num = Decimal(rating)
     if rating_num >= 4:
         return "Excellent"

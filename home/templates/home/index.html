@@ -47,8 +47,8 @@
                 <p>{{hotel.brief_description}}</p>
             </div>
             <div class="col-sm-4 col-md-2">
-                <h4> {{hotel.rating|rating_string}}</h4>
-                <a href="{% url 'hotel_details' hotel.id %}" class="btn btn btn-success mb-2">
+                <h4 class="h6"> {{hotel.rating|rating_string}}</h4>
+                <a href="{% url 'hotel_details' hotel.id %}" class="btn btn btn-sm btn-success mb-2">
                     Show Details
                 </a>
                 <!-- <button class="btn btn-success mb-2">Show Details</button> -->

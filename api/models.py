@@ -115,5 +115,9 @@ class GeneralFacility(models.Model):
                                  null=True, blank=True,
                                  related_name='general_facility')
 
+    class Meta:
+        # Prevent multiple submission of same hotel, room type and facility
+        unique_together = ('hotel_id', 'facility')
+
     def __str__(self):
         return self.facility.name

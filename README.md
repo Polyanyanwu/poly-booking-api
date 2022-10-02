@@ -142,7 +142,7 @@ GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotels/<hote
 DELETE method end point: ```https://poly-booking-api.herokuapp.com/api/hotels/<hotel id>/```
 Authorization is required and validation of the user is done.
 
-6. Get lis of hotel rooms
+6. Get list of hotel rooms
 GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/```
 
 7. Create new Hotel Room record:
