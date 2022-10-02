@@ -18,6 +18,7 @@ The Poly Booking API is a website designed to demonstrate hosting a hotel bookin
   - [Database](#database)
   - [API End Points](#api-end-points)
     - [Authorization Token](#authorization-token)
+    - [API URL](#api-url)
 
 ## **Objectives of the Site**
 
@@ -39,6 +40,18 @@ The facility codes and room types shall be general and maintained by the site ow
 If time permits, the update, delete and create functions shall be done by only privileged users.
 
 ## **User Stories**
+
+| User Story                                                                                                                                                          | Acceptance Criteria                                                                                                                                                                                                                                                                 | Tasks                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| As a site owner I can maintain facility code and room types, so that customers can have valid codes to use to describe hotel and rooms                              | <br>    Menu item available to maintain facility code<br>    Menu item available to maintain room tyles<br>    Facility codes are added, deleted, updated successfully<br>    Room type codes are added, deleted, updated successfully<br>                                          | Create static tables application<br>Create models for facility and room types<br>Create the url and update the menu<br>Create the views to process the request<br>Test the functionality |
+| As a public user, I want to be able to view details of selected hotel retrieved via an API on a friendly interface so that I can see details of the hotel and rooms | <br>    \* List of available hotels is visible at home page with summary details of the hotel<br>    \* Clicking on a hotel will display the details of the hotel and rooms<br>                                                                                                     | \*Create the template to display the hotel details<br>\*Create view to process the request<br>\*Test the functionality                                                                   |
+| As site owner, I can have an effective interface to login and logout so that I can maintain data                                                                    | <br>    Sign-in link available on home page<br>    Sign-in page opens when link is clicked<br>    Full user menu is available when successfully signed in<br>                                                                                                                       | Add sign-in link to home page<br>Create sign-in page using Django Allauth<br>Enable full user menu to signed in user                                                                     |
+| As a public user, I want to be able to access the website using different devices so that I will have same friendly experience.                                     | <br>    Website is accessible on different sized devices<br>    Information is easy to find both on small and large screens<br>                                                                                                                                                     | Use Bootstrap responsive design on all pages<br>Ensure logo, title and menus appear on all pages consistently<br>Test the functionality                                                  |
+| As a registered user, I want to be able to create hotel record via an API so that the hotel will be available for public view                                       | <br>    API endpoint is available for creating Hotel Record<br>    Sending POST request to the API succeeds<br>    Response is given to the user including hotel ID<br>    The posted hotel is available for viewing<br>                                                            | Create the Model for the Hotel<br>Create form to receive the request<br>Create view to process the request<br>Test the functionality                                                     |
+| As a registered user, I want to be able to create/update/delete hotel room record via an API so that the rooms will be available for public view                    | <br>    API endpoint is available for creating/updating Hotel Room Record<br>    Sending POST request to the API succeeds<br>    Sending PUT, DELETE request to the API succeeds<br>    Response is given to the user including<br>    The posted room is available for viewing<br> | Create the Model for the Hotel<br>Create serializer to receive the request<br>Create view to process the request<br>Test the functionality                                               |
+| As a public user, I want to be able to view list of hotels retrieved via an API on a friendly interface so that I can select a hotel for booking                    | List of available hotels is visible at home page with summary details of the hotel                                                                                                                                                                                                  | Create the Model for the Hotel<br>Create the template to display the hotels<br>Create view to process the request<br>Test the functionality                                              |
+| As a public user, I want to be able to view details of selected hotel retrieved via an API on a friendly interface so that I can see details of the hotel and rooms | List of available hotels is visible at home page with summary details of the hotel                                                                                                                                                                                                  | Create the template to display the hotel details<br>Create view to process the request<br>Test the functionality                                                                         |
+|                                                                                                                                                                     | Clicking on a hotel will display the details of the hotel and rooms                                                                                                                                                                                                                 |                                                                                                                                                                                          |
 
 ### **Wireframes**
 
@@ -66,25 +79,25 @@ in the body of the POST message add your username and password as follows:
 ```
 You will be provided with a response like this:
 
-```{
+```
+{
     "token": "13ecc0xxxfa6286485924f97abaa11105dca2385"
-}```
+}
+```
 
 For your POST requests to be authenticated, the token key should be included in the Authorization HTTP header. The key should be prefixed by the string literal "Token", with whitespace separating the two strings. For example:
 
 Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
 
-
 ### API URL
 
-**1. Get list of all hotels: **
-  GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
+**1. Get list of all hotels:**
+GET method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
 
 **2. Post Hotel Data, include hotel rooms and hotel general facilities:**
-  POST method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
+POST method end point: ```https://poly-booking-api.herokuapp.com/api/hotels```
 
 ```
-
     {
         "name": "xxStation",
         "brief_description": "Travel xx",
