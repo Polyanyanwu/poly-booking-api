@@ -14,7 +14,7 @@ const toastRemove = function () {
         if (toast.classList.contains('show')) {
             setTimeout(function () {
                 toast.classList.remove('show');
-            }, 15000); // 15 seconds
+            }, 10000); // 10 seconds
         }
     }
 };

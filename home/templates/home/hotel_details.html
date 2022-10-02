@@ -70,7 +70,7 @@
                 <div class="card-body">
                     <!-- <h5 class="card-title">Special title treatment</h5> -->
                     {% for fac in hotel.hotel_general_facility %}
-                        <p class="card-text">{{fac.facility|facility_name}}</p>
+                    <p class="card-text">{{fac.facility|facility_name}}</p>
                     {% endfor %}
                     <a href="#" class="btn btn-primary">Reserve</a>
                 </div>
@@ -91,23 +91,40 @@
                 <tbody>
                     {% for room in hotel.hotel_rooms %}
                     <tr>
-                        <td>{{room.room_type}}
-                            {{hotel.id}}|room_facilities:{{room.room_type}}
-
-                        </td>
-                        <td>€{{room.price}}</td>
                         <td>
-                            <p class="my-0 text-success">
+                            <h5 class="h6 fw-bold text-primary">{{room.room_type|room_name}}</h5>
+                            {% for facility in room.room_type|get_room_facilities:room_facilities %}
+                            <span class="mx-1 small"> <i class="fas fa-check small"></i>
+                                {{facility|facility_name}}</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if room.on_sale %}
+                                <span class="lead strikeout mb-0 text-left ">€{{ room.price|floatformat:2}}</span>
+                                <span class="lead highlight ms-2"> €{{room.sale_price|floatformat:2}}</span>
+                            {% else %}
+                                <span class="lead mb-0 text-left highlight">€{{ room.price }}</span>
+                            {% endif %}
+                            <p>
+                                {% if room.quantity < 10 %} 
+                                    <span class="text-muted fst-italic">Only {{room.quantity}} left at this price</span>
+                                {% endif %} 
+                            </p>
+                        </td>
+                        <td>
+                            <p class="my-0 text-success small">
                                 <i class="fas fa-check small"></i>
                                 Free cancellation until {{hotel.free_cancel_limit|date_from_now | date:'d M, Y H:i a'}}
                             </p>
-                            <p class="my-0 text-success"> 
+                            <p class="my-0 text-success small">
                                 <i class="fas fa-check small"></i>
-                                {% if room.breakfast_included %} Breakfast included {% else %} Breakfast excluded {% endif %}
+                                {% if room.breakfast_included %} Breakfast included {% else %} Breakfast excluded
+                                {% endif %}
                             </p>
-                            <p class="my-0 text-success"> 
+                            <p class="my-0 text-success small">
                                 <i class="fas fa-check small"></i>
-                                {% if hotel.prepayment_needed %} Prepayment needed to confirm booking {% else %} No Prepayment needed - Pay at property {% endif %}
+                                {% if hotel.prepayment_needed %} Prepayment needed to confirm booking {% else %} No
+                                Prepayment needed - Pay at property {% endif %}
                             </p>
                         </td>
                     </tr>
@@ -116,14 +133,14 @@
             </table>
         </div>
         <div class="col-sm-2">
-                <p class="mt-1">
-                    <!-- <hr> -->
-                </p>
-                <button class="btn btn-sm btn-success w-100 mt-4">I'll Reserve</button>
-                <ul>
-                    <li>Confirmation is immediate</li>
-                    <li>No booking or Credit card fees</li>
-                </ul>
+            <p class="mt-1">
+                <!-- <hr> -->
+            </p>
+            <button class="btn btn-sm btn-success w-100 mt-4">I'll Reserve</button>
+            <ul>
+                <li>Confirmation is immediate</li>
+                <li>No booking or Credit card fees</li>
+            </ul>
         </div>
     </div>
 </div>

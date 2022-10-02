@@ -51,20 +51,14 @@
                 <a href="{% url 'hotel_details' hotel.id %}" class="btn btn btn-sm btn-success mb-2">
                     Show Details
                 </a>
-                <!-- <button class="btn btn-success mb-2">Show Details</button> -->
             </div>
-            <!-- {{hotel.hotel_general_facility}}
-            {% for room in hotel.hotel_rooms %}
-            <div>{{room.room_type}}</div>
-            <div>{{room.price}}</div>
-            <div>{{room.on_sale}}</div>
-            {{room.sale_price}}
-            {{room.quantity}}
-            {% endfor %} -->
             {% endfor %}
         </div>
-
-        <!-- </div> -->
     </div>
+</div>
+<div class="back-to-top-btn shadow-sm border red-border">
+    <a class="back-to-top-link d-flex h-100" title="Back to top">
+        <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
+    </a>	
 </div>
 {% endblock %}

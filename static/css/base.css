@@ -15,8 +15,9 @@ body {
     /* background: url('/media/index_background.png') no-repeat center center fixed;
     background-size: cover;
     background-position-y: 8.4rem; */
-    font-family: 'Exo', sans-serif;
-    font-weight: 400;
+    /* font-family: 'Exo', sans-serif; */
+    font-weight: 300;
+    font-family: 'Inter Tight', sans-serif;
 }
 
 main {
@@ -69,14 +70,6 @@ a {
     text-decoration: line-through;
 }
 
-.go-shop-btn {
-    background: var(--rich-black);
-    color: var(--baby-powder);
-    min-width: 150px;
-    font-weight: 500;
-}
-
-
 .back-to-top-btn {
     height: 42px;
     width: 42px;
@@ -104,21 +97,6 @@ a {
     width: 60px;
     height: 30px;
     cursor: auto;
-}
-
-.img-mid {
-    object-fit: cover;
-    width: 120px;
-    height: 60px;
-}
-
-/* from Bulma -walkthrough project*/
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
 }
 
 .black-border {

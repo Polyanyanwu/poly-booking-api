@@ -52,7 +52,22 @@ def hotel_details(request, hotel_id):
             messages.error(request,
                            "Could not retrieve hotel, Please try later")
     hotel = None
+    room_facilities = {}
     if hotels:
         hotel = hotels[0]
+
+        for room in hotel["hotel_rooms"]:
+            room_type = room["room_type"]
+            url = settings.APP_URL + '/api/room-facility/' + str(hotel_id) + "/" + str(room_type) + "/"
+            response = requests.get(url)
+            if response.status_code == 200:
+                try:
+                    room_fac = response.json()
+                    room_facilities[room["room_type"]] = []
+                    print(type( room_facilities[room["room_type"]]))
+                    for fac in room_fac:
+                        room_facilities[room["room_type"]].append(fac['facility'])
+                except requests.exceptions.JSONDecodeError:
+                    room_fac = None
     return render(request, 'home/hotel_details.html',
-                  {'hotel': hotel})
+                  {'hotel': hotel, "room_facilities": room_facilities})
