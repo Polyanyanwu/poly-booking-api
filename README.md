@@ -19,6 +19,8 @@ The Poly Booking API is a website designed to demonstrate hosting a hotel bookin
   - [API End Points](#api-end-points)
     - [Authorization Token](#authorization-token)
     - [API URL](#api-url)
+  - [**Technologies Used**](#technologies-used)
+    - [**Frameworks and Libraries**](#frameworks-and-libraries)
 
 ## **Objectives of the Site**
 
@@ -187,7 +189,8 @@ Expects list of hotel rooms:
 ```
 8. Update Hotel Room details:
 
-PUT method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/<room_id>/```
+PUT method end point:
+ ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/<room_id>/```
 
 ```
     {
@@ -202,14 +205,17 @@ PUT method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<
 Although room type could be added as a field to be updated, however care should be taken as same room type for the same hotel is not permitted to be added more than once.
 
 9. Delete a specific hotel room:
-DELETE method end point: ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/<room_id>/```
+DELETE method end point:
+ ```https://poly-booking-api.herokuapp.com/api/hotel-room/<hotel id>/<room_id>/```
 Authorization is required and validation of the user is done.
 
 10. Get lis of hotel room type facilities
-GET method end point: ```https://poly-booking-api.herokuapp.com/api/room-facility/<hotel id>/<room type>/```
+GET method end point: 
+```https://poly-booking-api.herokuapp.com/api/room-facility/<hotel id>/<room type>/```
 
 11. Add new facility to hotel room type:
-POST method end point ```https://poly-booking-api.herokuapp.com/api/room-facility/<hotel id>/<room type>/```
+POST method end point:
+ ```https://poly-booking-api.herokuapp.com/api/room-facility/<hotel id>/<room type>/```
 Expects list of facility codes in the body of the request:
 
 ```
@@ -228,3 +234,25 @@ Expects list of facility codes in the body of the request:
 ```
 Response is given as list of all created records.
 Validation is done and error messages are displayed where appropriate.
+
+## **Technologies Used**
+  
+  The main technologies used are:
+
+  1. Python3 (3.9.14)
+  2. HTML (used to display the pages - Django templates make use of HTML)
+  3. Jinja template language
+  4. CSS (used in styling some of the HTML)
+  5. Javascript
+
+### **Frameworks and Libraries**
+
+- Django framework, which is a very powerful open source project. The documentation of Django is on the [Official Django Site](https://www.djangoproject.com/).
+- [Django Allauth Package](https://django-allauth.readthedocs.io/en/latest/installation.html) was used for the user signup, password management and related functionality.
+- [Bootstrap V5.1](https://getbootstrap.com/docs/5.1/getting-started/introduction/) was used in styling and positioning the HTML elements on the pages.
+- [jQuery 3.6](https://jquery.com/) for rendering the modal confirmation of actions on the application and the checkout page.
+- [Font Awesome -V 5.15.3](https://fontawesome.com/) was used to deliver the icons in the pages.
+- [Cloudinary Storage](https://cloudinary.com/) was used in rendering static files on the website.
+- [Django Crispy Forms)(https://django-crispy-forms.readthedocs.io/en/latest/) was helpful to display some of the forms on the pages.
+- [Dj-database-url](https://pypi.org/project/dj-database-url/) assisted with accessing the database.
+- [Psycopg2](https://pypi.org/project/psycopg2/) was the PostgreSQL database adapter for the Python programming language that was used in the project.
