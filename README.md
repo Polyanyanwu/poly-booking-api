@@ -57,7 +57,13 @@ If time permits, the update, delete and create functions shall be done by only p
 
 ### **Wireframes**
 
-Wireframes were designed at the onset of the project and guided the development of the application. The full wireframes are ![provided HERE](/docs/wireframe.md)
+Wireframes were designed at the onset of the project and guided the development of the application. The  wireframes for the home page where all hotels are listed by default is:
+
+ ![Home Page](/docs/home.png)
+
+The details of a selected hotel is given below:
+
+ ![Details Page](/docs/details.png)
 
 ## Database
 
