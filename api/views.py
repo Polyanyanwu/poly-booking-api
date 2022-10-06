@@ -194,7 +194,7 @@ class HotelListApiView(APIView):
 
     def get(self, request, *args, **kwargs):
         '''
-        List all the hotel rooms for given requested user
+        List all the hotel rooms
         '''
         hotels = Hotel.objects.all()
 

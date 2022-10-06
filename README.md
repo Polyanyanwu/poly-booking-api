@@ -2,7 +2,7 @@
 
 The Poly Booking API is a website designed to demonstrate hosting a hotel booking API component and using it to save, update, delete and render list of available hotels to the user.
 
-![Poly Booking API](/docs/images/poly_booking_api.png)
+![Poly Booking API](/docs/booking_api.pngboo)
 
 ## Live Site
 
