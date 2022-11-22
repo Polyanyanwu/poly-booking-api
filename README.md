@@ -6,7 +6,7 @@ The Poly Booking API is a website designed to demonstrate hosting a hotel bookin
 
 ## Live Site
 
-[Poly Booking API Live](https://poly-booking-api.herokuapp.com)
+[Poly Booking API Live](https://poly-booking-api.onrender.com)
 
 - [**POLY BOOKING API**](#poly-booking-api)
   - [Live Site](#live-site)
