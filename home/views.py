@@ -14,7 +14,7 @@ def index(request):
     """ A view to return the index page """
 
     app_url = settings.APP_URL.strip()
-    print("app url===", app_url)
+
     if 'search' in request.GET:
         criteria = request.GET['search']
         if not criteria:
@@ -25,8 +25,9 @@ def index(request):
 
     else:
         url = app_url + '/api/hotels'
+    print("app url===", url)
     response = requests.get(url)
-
+    print("after request.get===", url)
     hotels = response
 
     if 'name' not in hotels.text:  # no hotel found
