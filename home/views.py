@@ -25,6 +25,7 @@ def index(request):
     else:
         url = app_url + '/api/hotels'
     response = requests.get(url)
+    print("hotels===", response)
     hotels = response
 
     if 'name' not in hotels.text:  # no hotel found
